@@ -3,31 +3,30 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class AlzaTests {
-    WebDriver browser = WebDriverManager.firefoxdriver().create();
-    WebDriverWait wait;
+import static org.apache.commons.lang3.RandomStringUtils.random;
 
-    public void waitFor(int seconds) {
-        try {
-            Thread.sleep(seconds * 1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+public class AlzaTests extends BaseAbstractTest {
 
-    @BeforeEach
-    public void beforeTest() {
-        browser.get("https://www.alza.cz/");
-        waitFor(2);
-        WebElement cookiesAcceptButton = browser.findElement(By.xpath("//a[contains(text(), 'Rozumím')]"));
-        cookiesAcceptButton.click();
-        browser.manage().window().maximize();
-    }
+    Cart cartPage;
+    MainPage mainPage;
+    ProductSubpage productSubpage;
+    DetailProductPage detailProductPage;
+    SignInPage signInPage;
+    RegistrationPage registrationPage;
+
+   @BeforeEach
+   public void beforeTest() {
+       cartPage = new Cart(browser);
+       mainPage = new MainPage(browser);
+       productSubpage = new ProductSubpage(browser);
+       detailProductPage = new DetailProductPage(browser);
+       signInPage = new SignInPage(browser);
+       registrationPage = new RegistrationPage(browser);
+   }
 
    @Test
    public void homePageTest() {
@@ -37,11 +36,6 @@ public class AlzaTests {
 
     @Test
     public void tvTest() throws InterruptedException{
-        Cart cartPage = new Cart(browser);
-        MainPage mainPage = new MainPage(browser);
-        ProductSubpage productSubpage = new ProductSubpage(browser);
-        DetailProductPage detailProductPage = new DetailProductPage(browser);
-
         mainPage.goToProductSubpage("/tv-foto-audio-video");
 
         productSubpage.goToProduct("Televize");
@@ -58,7 +52,7 @@ public class AlzaTests {
         productSubpage.scrollDown();
 
         detailProductPage.sortByAscending("#cenaasc");
-        //waitFor(3);
+        waitFor(3);
 
         detailProductPage.addFirstProductToCart();
 
@@ -89,4 +83,31 @@ public class AlzaTests {
         //Assertions.assertEquals(priceOfOne * 2 | priceOfOne * 2 + 1,priceOfTwo );
     }
 
+
+  @Test
+    public void registrationOfNewUser() {
+
+    mainPage.clickOnSignIn();
+
+    signInPage.clickOnNewRegistration();
+
+    String randomEmail = random(6, true, true) + "@gmail.com";
+    registrationPage.fillInEmail(randomEmail);
+
+    String randomPassword = random(10, true, true);
+    registrationPage.fillInPassword(randomPassword);
+    registrationPage.fillInPasswordAgain(randomPassword);
+
+    String randomTelephoneNumber = "777" + random(6, false, true);
+    registrationPage.fillInTelephoneNumber(randomTelephoneNumber);
+
+    registrationPage.clickOnSaveButton();
+    waitFor(2);
+
+    Assertions.assertEquals("Přihlášení", registrationPage.getNameofSignInConfirmation());
+
+    //String fillInCodeAlert = registrationPage.getNameOfFillInCodeAlert();
+    //System.out.println(fillInCodeAlert);
+    //Assertions.assertEquals("Zadejte ověřovací kód", registrationPage.getNameOfFillInCodeAlert());
+    }
 }

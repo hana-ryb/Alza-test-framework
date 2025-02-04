@@ -1,14 +1,15 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class DetailProductPage {
-    WebDriver browser;
-    WebElement element;
+import java.time.Duration;
+
+public class DetailProductPage extends AlzaParentOperations {
+
 
     public DetailProductPage(WebDriver browser) {
-        this.browser = browser;
+        super(browser);
     }
 
     protected void sortByAscending(String sortingCategory) {
@@ -43,9 +44,7 @@ public class DetailProductPage {
         return browser.findElement(By.cssSelector(".firstRow .name")).getText();
     }
 
-    protected void goToCartNotEmpty() {
-        browser.findElement(By.cssSelector(".header-alz-18 .header-alz-103")).click();
-    }
+
 
 
 }

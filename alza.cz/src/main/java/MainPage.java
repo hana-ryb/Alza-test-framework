@@ -27,4 +27,8 @@ public class MainPage {
     protected void acceptCookies() {
         browser.findElement(By.xpath("//a[contains(text(), 'Rozumím')]")).click();
     }
+
+    protected void clickOnSignIn() {
+        browser.findElement(By.xpath("//span[@data-testid='headerContextMenuToggleLogin']")).click();
+    }
 }
