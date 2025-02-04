@@ -1,1 +1,1 @@
-Framework for functional automated test for Alza.cz.
+Framework for functional automated tests for Alza.cz.
