@@ -3,12 +3,15 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class RegistrationPage {
     WebDriver browser;
     WebDriverWait wait;
 
     public RegistrationPage(WebDriver browser) {
         this.browser = browser;
+        this.wait = new WebDriverWait(browser, Duration.ofMillis(10000));
     }
 
     protected void fillInEmail(String email) {
@@ -34,6 +37,7 @@ public class RegistrationPage {
 
     protected void clickOnSaveButton() {
         browser.findElement(By.xpath("//span[contains(text(), 'Uložit')]")).click();
+        wait.until(r->browser.findElement(By.xpath("//h1[contains(text(), \"Přihlášení\")]")).isDisplayed());
     }
 
     protected String getNameOfFillInCodeAlert() {
@@ -42,6 +46,10 @@ public class RegistrationPage {
 
     protected String getNameofSignInConfirmation() {
         return browser.findElement(By.xpath("//h1[contains(text(), \"Přihlášení\")]")).getText();
+    }
+
+    protected String getNameOfAlertWrongFormatOfEmail() {
+        return browser.findElement(By.xpath("//div[@class='alzaAlertContent']")).getText();
     }
 
 }

@@ -15,5 +15,4 @@ public class ProductSubpage extends AlzaParentOperations {
         browser.findElement(By.xpath(xpath)).click();
     }
 
-
 }

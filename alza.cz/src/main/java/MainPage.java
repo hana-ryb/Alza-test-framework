@@ -14,6 +14,10 @@ public class MainPage {
 
     }
 
+    protected void goToMainPage(){
+        browser.findElement(By.xpath("//a[@data-testid=\"headerLogo\"]"));
+    }
+
     protected void clickOnTv() {
         browser.findElement(By.xpath("//a[@href='/tv-foto-audio-video']")).click();
     }

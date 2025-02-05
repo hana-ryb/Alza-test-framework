@@ -37,4 +37,8 @@ public class AlzaParentOperations {
         ((JavascriptExecutor) browser).executeScript("arguments[0].scrollIntoView(true);", element);
         Thread.sleep(500);
     }
+
+    protected void getBack() {
+        browser.navigate().back();
+    }
 }

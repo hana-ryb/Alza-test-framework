@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 import static org.apache.commons.lang3.RandomStringUtils.random;
 
-public class AlzaTests extends BaseAbstractTest {
+public class E2Etests extends AbstractBaseTest {
 
     Cart cartPage;
     MainPage mainPage;
@@ -72,7 +72,8 @@ public class AlzaTests extends BaseAbstractTest {
 
         Assertions.assertTrue(
                 priceOfTwo == priceOfOne * 2 ||
-                priceOfTwo == priceOfOne * 2 + 1
+                priceOfTwo == priceOfOne * 2 + 1 ||
+                priceOfTwo == priceOfOne * 2 - 1
         );//sometimes the price of one consists of pennies and gets rounded up
 
         //Assertions.assertEquals(priceOfOne * 2,priceOfTwo );
