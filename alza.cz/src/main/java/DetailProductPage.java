@@ -40,7 +40,4 @@ public class DetailProductPage extends AlzaParentOperations {
         return browser.findElement(By.cssSelector(".firstRow .name")).getText();
     }
 
-
-
-
 }
